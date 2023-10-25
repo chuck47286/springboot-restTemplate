@@ -37,8 +37,9 @@ public class RestTemplateController {
         // 根据名称来调用服务，这个URI会被拦截器所置换
 //        String json = restTpl.getForObject("http://provider-server/hello", String.class);
 //        return json;
-        String requestURI =  "http://localhost:9081/" + request.getRequestURI();
-        System.out.println("请求路径：" + requestURI);
+//        String requestURI =  "test[http://localhost:9081/]" + request.getRequestURI();
+        String requestURI =  "http://127.0.0.1:9081,http://127.0.0.1:9082";
+//        System.out.println("请求路径：" + requestURI);
 
         ResponseEntity<String> stringResponseEntity = restServiceClient.sendRequestToAvailableService(requestURI);
         log.info("{}", stringResponseEntity);

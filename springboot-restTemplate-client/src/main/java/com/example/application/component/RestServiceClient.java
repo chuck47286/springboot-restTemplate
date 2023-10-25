@@ -43,7 +43,7 @@ public class RestServiceClient {
 
             response = restTemplate.exchange(requestURI, HttpMethod.GET, null, String.class);
         } catch (Exception e) {
-            log.info("err={}", e.getMessage());
+            log.debug("err={}", e.getMessage());
         }
         return response;
         /**
