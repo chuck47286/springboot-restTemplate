@@ -38,7 +38,7 @@ public class RestTemplateController {
 //        String json = restTpl.getForObject("http://provider-server/hello", String.class);
 //        return json;
 //        String requestURI =  "test[http://localhost:9081/]" + request.getRequestURI();
-        String requestURI =  "http://127.0.0.1:9081,http://127.0.0.1:9082";
+        String requestURI =  "http://127.0.0.1:9081,127.0.0.1:9082/get/request";
 //        System.out.println("请求路径：" + requestURI);
 
         ResponseEntity<String> stringResponseEntity = restServiceClient.sendRequestToAvailableService(requestURI);

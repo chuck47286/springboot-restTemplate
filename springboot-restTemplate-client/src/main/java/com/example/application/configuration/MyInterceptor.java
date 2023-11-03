@@ -11,6 +11,10 @@ import org.springframework.stereotype.Component;
 
 import java.io.IOException;
 import java.net.URI;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * @Author yucheng
@@ -82,47 +86,31 @@ public class MyInterceptor implements ClientHttpRequestInterceptor {
         System.out.println(" 原来的URI请求不成功：返回 null");
         throw new RuntimeException("Original URI request failed");
     }
-//
-//    private ClientHttpResponse tryAlternateURIs(HttpRequest request, byte[] body,
-//                                                ClientHttpRequestExecution execution) {
-//        System.out.println("               原来的URI请求失败：" + request.getURI());
-//        List<String> serviceAddresses = loadBalancer.loadServiceAddresses(request.getURI().getHost());
-//
-//        for (String address : serviceAddresses) {
-//            URI newUri = URI.create(address);
-//            MyHttpRequest newRequest = new MyHttpRequest(request, newUri);
-//            System.out.println("               尝试新的URI：" + newRequest.getURI());
-//
-//            long st1 = System.currentTimeMillis();
-//            try {
-//                ClientHttpResponse response = execution.execute(newRequest, body);
-//                System.out.println("tryAlternateURIs succeed! time cost= " + (System.currentTimeMillis() - st1));
-//                if (response.getStatusCode().is2xxSuccessful()) {
-//                    System.out.println("               新的URI请求成功：" + newRequest.getURI());
-//                    return response;
-//                } else {
-//                    System.out.println("               新的URI请求失败：" + newRequest.getURI());
-//                }
-//            } catch (Exception e) {
-//                System.out.println("tryAlternateURIs failed! time cost= " + (System.currentTimeMillis() - st1));
-//                System.out.println("               新的URI请求异常：" + newRequest.getURI()+ ", err= " + e.getMessage());
-////                newException.printStackTrace();
-//            }
-//        }
-//
-////        throw new RuntimeException("All URI requests failed");
-//        log.info("All URI requests failed");
-//        return null;
-//    }
 
+    public static void main(String[] args) {
+//        String input = "http://127.0.0.1:9081/,http:/127.0.0.1:9082";
+//        String input = "http://127.0.0.1";
+        String input = "http://127.0.0.1:9081/,http:/127.0.0.1:9082/get/request";
+        /**
+        // 使用正则表达式匹配 IP:PORT 格式的内容
+        Pattern pattern = Pattern.compile("(\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}):(\\d+)");
+        Matcher matcher = pattern.matcher(input);
 
-//    private List<String> loadServiceAddresses(URI uri) {
-//        Map<String, String> biz = bizConfig.getJjt();
-//        String bizAddress = biz.get("address");
-//        if (StrUtil.isBlank(bizAddress)) {
-//            return Collections.emptyList();
-//        }
-//        String[] splits = bizAddress.split(",");
-//        return  Arrays.stream(splits).map(split -> split.trim()).filter(address -> !address.equals(uri.getHost())).map(address -> address + uri.getPath()).collect(Collectors.toList());
-//    }
+        List<String> matchedResults = new ArrayList<>();
+
+        while (matcher.find()) {
+            matchedResults.add(matcher.group());
+        }
+
+        // 输出匹配到的结果
+        for (String result : matchedResults) {
+            System.out.println(result);
+        }
+         */
+        final String substring = input.substring(input.lastIndexOf(",") + 1);
+        System.out.println(substring);
+        final String substring1 = substring.substring(substring.indexOf("/") + 1);
+        System.out.println(substring1);
+
+    }
 }

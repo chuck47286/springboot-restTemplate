@@ -1,13 +1,12 @@
 package com.example.application.component;
 
 import cn.hutool.core.util.StrUtil;
+import com.example.application.bean.RequestDemo;
 import com.example.application.config.BizConfig;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.http.HttpMethod;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+import org.springframework.http.*;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 
@@ -40,8 +39,19 @@ public class RestServiceClient {
 
         ResponseEntity<String> response = null;
         try {
-
-            response = restTemplate.exchange(requestURI, HttpMethod.GET, null, String.class);
+            // okay
+//            response = restTemplate.exchange(requestURI, HttpMethod.GET, null, String.class);
+            // okay
+//            String responseString = restTemplate.postForObject(requestURI, null, String.class);
+            // no okay
+            HttpHeaders httpHeaders = new HttpHeaders();
+            httpHeaders.setContentType(MediaType.APPLICATION_JSON_UTF8);
+            RequestDemo request = new RequestDemo();
+            request.setSyncId("603");
+            request.setBizId("FEX");
+            request.setStartIdx(1);
+            request.setRecordNumber(3);
+            String responseNo = restTemplate.postForObject("http://10.112.7.85:9094,10.112.7.82:9786/order/report/page", new HttpEntity(request, httpHeaders), String.class);
         } catch (Exception e) {
             log.debug("err={}", e.getMessage());
         }
